@@ -1,0 +1,46 @@
+<form [formGroup]="RegisterForm" (ngSubmit)="registerUser()">
+      <div class="outer">
+            <div class="inner1">
+                  <img  src="../../assets/shopping.png">
+                  <label>Online Book Shopping</label>
+            </div>
+            <div class="inner2">
+                  <mat-tab-group>
+                        <mat-tab label="LOGIN"> 
+                              <br>
+                        <app-login></app-login>   
+                        </mat-tab>
+                        <mat-tab label="SIGNUP">
+                              <div class="signUp">
+                              <br>
+                              <div class="customfields">
+                                    <mat-label>Full Name</mat-label>
+                                    <mat-form-field appearance="outline">                              
+                                          <input  matInput placeholder="Full Name" formControlName="name">
+                                    </mat-form-field>
+                              </div>
+                              <div class="customfields">
+                                    <mat-label>Email Id</mat-label>
+                                    <mat-form-field appearance="outline" >                              
+                                          <input matInput placeholder="Email Id" formControlName="email">
+                                    </mat-form-field>
+                              </div>
+                              <div class="customfields">
+                                    <mat-label>Password</mat-label>
+                                    <mat-form-field appearance="outline">                              
+                                          <input type="password" matInput placeholder="Password" formControlName="pswd">
+                                    </mat-form-field>
+                              </div>
+                              <div class="customfields">
+                                    <mat-label>Mobile Number</mat-label>
+                                    <mat-form-field appearance="outline">                              
+                                          <input matInput placeholder="Mobile Number" formControlName="mno">
+                                    </mat-form-field>
+                              </div>
+                              <button [ngStyle]="{'width':'28vw'}"mat-raised-button color="primary" type="submit">Signup</button>
+                              </div>
+                        </mat-tab>
+                  </mat-tab-group>
+            </div>
+      </div>
+</form>

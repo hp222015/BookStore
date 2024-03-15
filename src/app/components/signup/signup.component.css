@@ -1,0 +1,53 @@
+.outer{
+width: 100vw;
+height: 100vh;
+background-color: rgba(0, 0, 0, 0.31);
+margin: 0;
+padding:0;
+box-sizing: border-box;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.inner1{
+      background-color: white;
+      width:25vw;
+      height:60vh;
+      border-radius:10px;
+      padding: 2%;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap:5vh;
+}
+.inner1 img{
+      width:15vw;
+      height:30vh;
+      clip-path: circle();
+}
+.inner1 label{
+      font-size: 2rem;
+}
+.inner2{
+      background-color: white;
+      width:30vw;
+      height:80vh;
+      border-radius:10px;
+      padding: 0px 3%;
+      margin-left: -60px;
+}
+.customfields{
+      display:flex;
+      flex-direction: column;
+}
+.signUp{
+      display:flex;
+      flex-direction:column;
+      justify-content: center;
+      gap:1.5vh;
+      overflow: hidden;
+}
+    
+      

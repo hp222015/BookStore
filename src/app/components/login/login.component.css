@@ -1,0 +1,16 @@
+.loginCnt{
+      display: flex;
+      flex-direction: column;
+      gap: 2vh;
+      padding: 2%;
+}
+.customfields{
+      display:flex;
+      flex-direction: column;
+}
+.buttons{
+      display:flex;
+      gap:2%;
+      justify-content: center;
+}
+
