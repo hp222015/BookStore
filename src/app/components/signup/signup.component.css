@@ -49,5 +49,18 @@ align-items: center;
       gap:1.5vh;
       overflow: hidden;
 }
+
+.loginCnt{
+      display: flex;
+      flex-direction: column;
+      gap: 2vh;
+      padding: 2%;
+}
+.b1{
+      display:flex;
+      gap:2%;
+      justify-content: center;
+}
+
     
       

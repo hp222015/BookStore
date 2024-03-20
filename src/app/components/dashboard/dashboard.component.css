@@ -1,0 +1,15 @@
+.heading{
+      font-weight: lighter;      
+}
+
+.content{
+      margin:0vw 8vw;
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+}
+.mb1{
+      border:1px solid gray;
+      margin-right:0.5vw;
+      width:11vw;
+}

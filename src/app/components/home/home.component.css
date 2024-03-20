@@ -1,0 +1,31 @@
+.navbar{
+      background-color: #A03037;
+      width:100vw;
+      height:10vh;
+      display:flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin:auto;
+      padding: auto;
+}
+.navbar input{
+      width: 50%;
+      height: 5vh;
+}
+.icons{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color:white;
+}
+.graytext{
+      color:#878787;
+}
+.auth{
+      border:2px solid #A03037;
+      width:10vw;
+      height:8vh;
+      background-color:white;
+      color:#A03037; font-weight: bold;
+}

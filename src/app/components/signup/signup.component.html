@@ -1,46 +1,83 @@
-<form [formGroup]="RegisterForm" (ngSubmit)="registerUser()">
-      <div class="outer">
-            <div class="inner1">
-                  <img  src="../../assets/shopping.png">
-                  <label>Online Book Shopping</label>
-            </div>
-            <div class="inner2">
-                  <mat-tab-group>
-                        <mat-tab label="LOGIN"> 
-                              <br>
-                        <app-login></app-login>   
-                        </mat-tab>
-                        <mat-tab label="SIGNUP">
-                              <div class="signUp">
-                              <br>
-                              <div class="customfields">
-                                    <mat-label>Full Name</mat-label>
-                                    <mat-form-field appearance="outline">                              
-                                          <input  matInput placeholder="Full Name" formControlName="name">
-                                    </mat-form-field>
-                              </div>
-                              <div class="customfields">
-                                    <mat-label>Email Id</mat-label>
-                                    <mat-form-field appearance="outline" >                              
-                                          <input matInput placeholder="Email Id" formControlName="email">
-                                    </mat-form-field>
-                              </div>
-                              <div class="customfields">
-                                    <mat-label>Password</mat-label>
-                                    <mat-form-field appearance="outline">                              
-                                          <input type="password" matInput placeholder="Password" formControlName="pswd">
-                                    </mat-form-field>
-                              </div>
-                              <div class="customfields">
-                                    <mat-label>Mobile Number</mat-label>
-                                    <mat-form-field appearance="outline">                              
-                                          <input matInput placeholder="Mobile Number" formControlName="mno">
-                                    </mat-form-field>
-                              </div>
-                              <button [ngStyle]="{'width':'28vw'}"mat-raised-button color="primary" type="submit">Signup</button>
-                              </div>
-                        </mat-tab>
-                  </mat-tab-group>
-            </div>
+<div class="outer">
+      <div class="inner1">
+        <img src="../../assets/shopping.png">
+        <label>Online Book Shopping</label>
       </div>
-</form>
+      <div class="inner2">
+        <mat-tab-group>
+          <mat-tab label="LOGIN">
+            <form [formGroup]="LoginForm" (ngSubmit)="loginUser()">
+              <div class="loginCnt">
+                <div class="customfields">
+                  <mat-label>Email Id</mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput type="email" placeholder="Email" formControlName="email">
+                  </mat-form-field>
+                  <div style="color:red;" *ngIf="submittedLogin && fl?.['email']?.errors?.['required']">Email is required</div>
+                  <div style="color:red;" *ngIf="submittedLogin && fl?.['email']?.errors?.['email']">Email should be valid</div>
+                </div>
+                <div class="customfields">
+                  <mat-label>Password</mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput type="password" placeholder="password" formControlName="password">
+                  </mat-form-field>
+                  <div style="color:red;" *ngIf="submittedLogin && fl?.['password']?.errors?.['required']">Password is required</div>
+                  <div style="color:red;" *ngIf="submittedLogin && fl?.['password']?.errors?.['minlength']">Password should have atleast 6 characters</div>
+                </div>
+                <button mat-raised-button color="primary" type="submit">Login</button>
+                <br>
+                <mat-label style="align-self: center;">_____________ OR _____________</mat-label>
+                <br>
+                <div class="b1">
+                  <button [ngStyle]="{'width':'20vw'}" mat-raised-button color="primary">Facebook</button>
+                  <button [ngStyle]="{'width':'20vw'}" mat-raised-button color="primary">Google</button>
+                </div>
+              </div>
+            </form>
+          </mat-tab>
+    
+          <!-- REGISTER FORM STARTS-->
+          <mat-tab label="SIGNUP">
+            <form [formGroup]="RegisterForm" (ngSubmit)="registerUser()">
+              <div class="signUp">
+                <br>
+                <div class="customfields">
+                  <mat-label>Full Name</mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput type="text" placeholder="Full Name" formControlName="name">
+                  </mat-form-field>
+                  <div style="color:red;" *ngIf="submittedRegister && fr?.['name']?.errors?.['required']">Full Name is required</div>
+                  <div style="color:red;" *ngIf="submittedRegister && fr?.['name']?.errors?.['minlength']">Name should have at least 3 characters</div>
+                </div>
+                <div class="customfields">
+                  <mat-label>Email Id</mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput type="text" placeholder="Email Id" formControlName="email">
+                  </mat-form-field>
+                  <div style="color:red;" *ngIf="submittedRegister && fr?.['email']?.errors?.['required']">Email is required</div>
+                  <div style="color:red;" *ngIf="submittedRegister && fr?.['email']?.errors?.['email']">Email should be valid</div>
+                </div>
+                <div class="customfields">
+                  <mat-label>Password</mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput type="password" placeholder="Password" formControlName="pswd">
+                  </mat-form-field>
+                  <div style="color:red;" *ngIf="submittedRegister && fr?.['pswd']?.errors?.['required']">Password is required</div>
+                  <div style="color:red;" *ngIf="submittedRegister && fr?.['pswd']?.errors?.['minlength']">Password should have atleast 6 characters</div>
+                </div>
+                <div class="customfields">
+                  <mat-label>Mobile Number</mat-label>
+                  <mat-form-field appearance="outline">
+                    <input matInput type="number" placeholder="Mobile Number" formControlName="mno">
+                  </mat-form-field>
+                  <div style="color:red;" *ngIf="submittedRegister && fr?.['mno']?.errors?.['required']">Mobile No. is required</div>
+                  <div style="color:red;" *ngIf="submittedRegister && fr?.['mno']?.errors?.['minlength']">Mobile No. should have atleast 10 digits</div>
+                </div>
+                <button [ngStyle]="{'width':'28vw'}" mat-raised-button color="primary" type="submit">Signup</button>
+              </div>
+            </form>
+          </mat-tab>
+        </mat-tab-group>
+      </div>
+    </div>
+    

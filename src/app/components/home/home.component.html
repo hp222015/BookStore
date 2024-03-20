@@ -1,1 +1,32 @@
-<p>home works!</p>
+<div class="navbar">
+      <div style="display:flex; gap:2vw;">
+            <img src="../../../assets/book.png">
+            <label style="color: white">Bookstore</label>
+      </div>
+      <input class="searchInput" matInput type="text" placeholder="Search">
+      <div style="display:flex; gap:2vw; align-items: center;">
+            <button mat-button [matMenuTriggerFor]="menu">
+                  <div class="icons" >
+                  <mat-icon style="color:white">person</mat-icon>
+                  <label>Harshit</label>
+                  </div>
+            </button>
+            <mat-menu #menu="matMenu">
+                  <div style="padding: 0 2vw;">
+                        <h3>Welcome</h3>
+                        <label class="graytext">To access account and manage orders</label>
+                        <br><br>
+                        <button class="auth" (click)="gotoLogin();">LOGIN/SIGNUP</button>
+                        <br>
+                        <label  class="graytext">__________________________</label>
+                        <button class="graytext" mat-menu-item><mat-icon >Orders</mat-icon>My Orders</button>
+                        <button class="graytext" mat-menu-item><mat-icon >favorite</mat-icon>Wishlist</button>
+                  </div>
+            </mat-menu>
+            <div class="icons">
+                  <mat-icon>shopping_cart</mat-icon>
+                  <label>Cart</label>
+            </div>
+      </div>
+</div>
+<router-outlet></router-outlet>
