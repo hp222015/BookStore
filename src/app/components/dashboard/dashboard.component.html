@@ -4,6 +4,7 @@
             <h3 class="heading">Books</h3>
             <label style="color:gray; font-size: 10px;">(128 items)</label>
       </div>
+
       <div>
             <button class="mb1" mat-button [matMenuTriggerFor]="menu">Sort by relevance </button>
             <mat-menu #menu="matMenu">
@@ -15,7 +16,11 @@
 
 </div>
 <div style="display:flex; flex-wrap:wrap; margin:0vw 8vw; gap:2vw;">
-      <div *ngFor="let book of bookList">
-            <app-books [bookDetails]="book"></app-books>
+      <div  *ngFor="let book of pagedBookList">
+            <app-books (click)="postBookDetails(book)" [bookDetails]="book"></app-books>
       </div>
+</div>
+<!-- Pagination controls-->
+<div style="display:flex; justify-content: center;">
+      <button *ngFor="let page of getPageNumbers()" (click)="onPageChange(page)" mat-button>{{ page }}</button>
 </div>
