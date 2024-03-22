@@ -20,5 +20,9 @@ export class BookService {
     return this.http.get(`${this.baseUrl}/bookstore_user/get/book`);
   }
 
+  postFeedback(id:string,data:any){
+    return this.http.post(`${this.baseUrl}/bookstore_user/add/feedback/{id}`,data,{ headers: this.authHeader })
+  }
+
 }
 

@@ -65,6 +65,7 @@
 }
 .star-rating {
       display: inline-block;
+      color:white;
       font-size: 24px; /* Adjust as needed */
     }
     

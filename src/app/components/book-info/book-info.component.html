@@ -46,9 +46,9 @@
                         <div style="width:40vw; height:1px; background-color: #9D9D9D;"></div>                        
 
                         <div class="feedback">
-                              <label style="color:#0A0102; font-weight: bold;">Customer Feedback</label>      
+                              <label style="color:#0A0102; ">Customer Feedback</label>      
                         </div>
-                        <div style="background-color:#F5F5F5; display:flex; flex-direction: column; justify-content: center; border:1px solid#F5F5F5;">
+                        <div style="background-color:#F5F5F5; display:flex; flex-direction: column; justify-content: center; border:1px solid#F5F5F5; padding:10px;">
                               <label style="color:#0A0102">Overall rating</label>
                               <!-- <div style="display: flex; color:#707070; opacity:0.5;">
                                     <mat-icon>star</mat-icon>
@@ -58,13 +58,12 @@
                                     <mat-icon>star</mat-icon>
                               </div> -->
                               <div class="star-rating">
-                                    <mat-icon *ngFor="let star of stars" [class.filled]="star <= value" (click)="setValue(star)">star</mat-icon>
+                                    <mat-icon *ngFor="let star of stars" [class.filled]="star <= value" (click)="setValue(star)" >star</mat-icon>
                               </div>
-                              <mat-form-field style="background-color: whitesmoke">
-                                    <mat-label>Favorite food</mat-label>
-                                    <input matInput placeholder="Write your review">
+                              <mat-form-field appearance="outline" [ngStyle]="{'background-color':'white'}" >
+                                    <input  matInput type="text-area" placeholder="Write your review" [(ngModel)]="comment">
                               </mat-form-field>
-                              <button mat-button color="primary" appearance="mat-raised-button">Submit</button>
+                              <button mat-raised-button color="primary" style="width:5vw; height:4vh; margin-left: auto;"  (click)="sendFeedback()">Submit</button>
                               
                         </div>
                   </div>
