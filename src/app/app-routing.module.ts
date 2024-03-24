@@ -24,7 +24,7 @@ const routes: Routes = [
     component:HomeComponent,
     children: [
       {
-        path: "bookInfo",
+        path: "bookInfo/:id",
         component:BookInfoComponent
       },
       {

@@ -57,10 +57,8 @@ export class DashboardComponent implements OnInit {
     return Array(this.totalPages).fill(0).map((x, i) => i + 1);
   }
 
-  postBookDetails(details: bookObj){
-    this.dataService.setDetails(details);
-    this.router.navigate(["/home/bookInfo"]);
-
+  navigateToBook(id: string){
+    this.router.navigate(["/home/bookInfo",id]);
   }
 
   get pagedBookList(): bookObj[] {

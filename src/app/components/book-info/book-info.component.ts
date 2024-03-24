@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
 import { BookService } from 'src/app/services/book/book.service';
+
 
 interface bookDetails {
   "bookName"?:string,
@@ -23,13 +24,24 @@ export class BookInfoComponent implements OnInit {
   stars: number[] = [1, 2, 3, 4, 5];
   comment: string='';
 
-  constructor(public dataService:DataService, public router:Router, public bookService:BookService){}
+  constructor(public dataService:DataService, public bookService:BookService, private route:ActivatedRoute , public router:Router){}
   ngOnInit(): void {
-    this.dataService.bDetails$.subscribe((details:bookDetails)=>
+
+    const idParam = this.route.snapshot.paramMap.get('id');
+    console.log(idParam);
+
+    if(idParam !==null)
     {
-      this.book=details;
-    },
-    (error)=>{console.log(error);});
+    this.bookService.getBooks().subscribe((result:any)=>{      
+      for (let item of result.result)
+      {
+        if(item._id==idParam)
+        {
+          this.book=item;
+          console.log(item);
+        }
+      }});
+    }
   }
   goHome(){
     this.router.navigate(['/dashboard']);
