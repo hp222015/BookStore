@@ -13,6 +13,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ForgotPswdComponent } from './components/forgot-pswd/forgot-pswd.component';
@@ -53,7 +55,9 @@ import { BooksComponent } from './components/books/books.component';
     MatFormFieldModule,
     MatButtonModule,
     MatExpansionModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

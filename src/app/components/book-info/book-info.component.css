@@ -76,4 +76,14 @@
 .mat-icon.filled {
       color: gold; /* Adjust as needed */
     }
+
+.profile{
+      width: 2vw;
+      height:5vh;
+      clip-path: circle();
+      background-color: #707070;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+}
     

@@ -55,7 +55,7 @@ loginUser(){
   }).subscribe((data:any)=>{
     console.log(data);
     localStorage.setItem("token",data.result.accessToken);
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/dashboard"]);
     // this.userService.verifyUser({"token":data.result.accessToken}).subscribe((result)=>{console.log(result);},
     // (error)=>{console.log(error);});
   },

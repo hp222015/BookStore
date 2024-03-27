@@ -1,7 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from 'src/app/services/book/book.service';
-import { DataService } from 'src/app/services/data/data.service';
 
 
 interface bookObj {
@@ -25,7 +24,7 @@ export class DashboardComponent implements OnInit {
   currentPage: number =1;
   itemsPerPage: number=8;
 
-  constructor(public bookService: BookService, public router:Router, public dataService:DataService){}
+  constructor(public bookService: BookService, public router:Router){}
 
   ngOnInit(): void {
        this.getBooks();
@@ -35,7 +34,6 @@ export class DashboardComponent implements OnInit {
     this.bookService.getBooks().subscribe((result:any)=>
     {
       this.bookList=result.result;
-      console.log(this.bookList);
     },
     (error)=>{console.log(error);});
   }
