@@ -1,26 +1,32 @@
 <app-home></app-home>
-<div class="content">
-      <div style="display:flex; align-items: center;">
-            <h3 class="heading">Books</h3>
-            <label style="color:gray; font-size: 10px;">(128 items)</label>
+<div style="display:flex; flex-direction: column; height:200vh; gap:8vh;">
+      <div class="content">
+            <div style="display:flex; align-items: center;">
+                  <h3 class="heading">Books</h3>
+                  <label style="color:gray; font-size: 10px;">(128 items)</label>
+            </div>
+      
+            <div>
+                  <button class="mb1" mat-button [matMenuTriggerFor]="menu">Sort by relevance </button>
+                  <mat-menu #menu="matMenu">
+                  <button mat-menu-item>Price: Low to High</button>
+                  <button mat-menu-item>Price: High to Low</button>
+                  <button mat-menu-item>Newest Arrivals</button>
+                  </mat-menu>
+            </div>
+      
       </div>
+      <div style="display:flex; flex-wrap:wrap; margin:0vw 8vw; gap:2vw;">
+            <div  *ngFor="let book of pagedBookList">
+                  <app-books (click)="navigateToBook(book._id)" [bookDetails]="book"></app-books>
+            </div>
+      </div>
+      <!-- Pagination controls-->
+      <div style="display:flex; justify-content: center;">
+            <button *ngFor="let page of getPageNumbers()" (click)="onPageChange(page)" mat-button>{{ page }}</button>
+      </div>
+</div>
 
-      <div>
-            <button class="mb1" mat-button [matMenuTriggerFor]="menu">Sort by relevance </button>
-            <mat-menu #menu="matMenu">
-            <button mat-menu-item>Price: Low to High</button>
-            <button mat-menu-item>Price: High to Low</button>
-            <button mat-menu-item>Newest Arrivals</button>
-            </mat-menu>
-      </div>
-
-</div>
-<div style="display:flex; flex-wrap:wrap; margin:0vw 8vw; gap:2vw;">
-      <div  *ngFor="let book of pagedBookList">
-            <app-books (click)="navigateToBook(book._id)" [bookDetails]="book"></app-books>
-      </div>
-</div>
-<!-- Pagination controls-->
-<div style="display:flex; justify-content: center;">
-      <button *ngFor="let page of getPageNumbers()" (click)="onPageChange(page)" mat-button>{{ page }}</button>
-</div>
+<footer>
+      Copyright <mat-icon>copyright</mat-icon> 2020,BookStore Private Limited.All Rights Reserved
+</footer>

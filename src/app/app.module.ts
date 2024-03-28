@@ -15,6 +15,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatRadioModule} from '@angular/material/radio';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ForgotPswdComponent } from './components/forgot-pswd/forgot-pswd.component';
@@ -57,7 +59,9 @@ import { BooksComponent } from './components/books/books.component';
     MatExpansionModule,
     MatPaginatorModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
+    MatBadgeModule,
+    MatRadioModule
   ],
   providers: [],
   bootstrap: [AppComponent]

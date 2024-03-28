@@ -4,12 +4,127 @@
             <span>My cart</span>
       </div>
       <div class="cartDetails">
-            <label>My cart(1)</label>
-            <mat-form-field>
-                  <mat-label>Favorite food</mat-label>
-                  <mat-select>
-                    <mat-option></mat-option>
-                  </mat-select>
-            </mat-form-field>
+            <div class="cartHeading">
+                  <label style="color:#333232">My cart(1)</label>
+                  <mat-form-field appearance="outline" style="height:5vh">
+                        <mat-label style="display:flex; justify-content: center; align-items: center;"><mat-icon>location_on</mat-icon>Location</mat-label>
+                        <mat-select>
+                          <mat-option>Home</mat-option>
+                          <mat-option>Office</mat-option>
+                        </mat-select>
+                  </mat-form-field>
+            </div>
+                        <div class="imgDetails" *ngFor="let book of cartBookList; let i = index">
+                              <img src="../../assets/book1.png">
+                                    <div class="bookDetails">
+                                          <label>{{book.bookName}}</label>
+                                          <label>by {{book.author}} </label>
+                                          <br>
+                                          <div style="display:flex; gap:1vw;">
+                                                <label>{{book.discountPrice}}</label>
+                                                <del>{{book.price}}</del>
+                                          </div>
+                                          <br>
+                                          <div  style="display:flex; gap:10px;">
+                                                <button style="clip-path: circle();border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="reduceBook(cartDetails[i].quantityToBuy)">-</button>
+                                                <div style="width:3vw; display: flex; justify-content: center; align-items: center; border: 1px solid #DBDBDB;" >{{bookQuantity}}</div>
+                                                <button style="border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="incrementBook(cartDetails[i].quantityToBuy,book.quantity)">+</button>
+                                                <label>Remove</label> 
+                                          </div>
+                                    </div>
+                        </div>
+                        <button mat-raised-button color="primary" id="order-button">PLACE ORDER</button>   
       </div>
+                        <mat-expansion-panel hideToggle class="address"  #myPanel  >
+                              <mat-expansion-panel-header *ngIf="!myPanel.expanded" >
+                                <mat-panel-title >
+                                    Address Details
+                                </mat-panel-title>            
+                              </mat-expansion-panel-header>
+                              <div style="padding:2vw;">
+
+                                    <form>
+                                          <div style="display:flex; flex-direction: column; gap:2vh;">
+                                                <div style="display:flex; justify-content: space-between; align-items: center;">
+                                                      <mat-label style="font-size: medium; font-weight: bolder; color:#333232;">Customer Details</mat-label>
+                                                      <button  mat-raised-button color="#FFFFFF" style="border:1px solid #A03037; color:#A03037;">Add New Address</button>
+                                                </div>
+                                                <div style="display:flex; gap:10px;">                                                      
+                                                      <div class="addDet">
+                                                            <mat-label>FullName</mat-label>
+                                                            <mat-form-field appearance="outline">
+                                                                  <input matInput>
+                                                            </mat-form-field>
+                                                      </div>
+                                                      <div class="addDet">
+                                                            <mat-label>Mobile Number</mat-label>
+                                                            <mat-form-field appearance="outline">
+                                                                  <input matInput>
+                                                            </mat-form-field>
+                                                      </div>
+                                                </div>
+                                                <label style="font-weight: bolder;">1. Work</label>
+                                                <div class="addDet">
+                                                      <mat-label>Address</mat-label>
+                                                      <mat-form-field appearance="outline" style="width:57%;">
+                                                            <textarea matInput></textarea>
+                                                      </mat-form-field>
+                                                </div>
+                                                <div style="display:flex; gap:10px;">
+                                                      <div class="addDet">
+                                                            <mat-label>city/town</mat-label>
+                                                            <mat-form-field appearance="outline">
+                                                                  <input matInput>
+                                                            </mat-form-field>
+                                                      </div>
+                                                      <div class="addDet">
+                                                            <mat-label>State</mat-label>
+                                                            <mat-form-field appearance="outline">
+                                                                  <input matInput>
+                                                            </mat-form-field>
+                                                      </div>
+                                                </div>
+                                                <div style="display:flex; flex-direction: column; gap:2vh;">
+                                                      <mat-label>Type</mat-label>  
+                                                                     
+                                                      <mat-radio-group aria-label="Select an option">
+                                                            <mat-radio-button value="1">Home</mat-radio-button>
+                                                            <mat-radio-button value="2">Work</mat-radio-button>
+                                                            <mat-radio-button value="3">Other</mat-radio-button>
+                                                      </mat-radio-group>
+                                                          
+                                                </div>
+                                                <button style="margin-left: auto;" mat-raised-button color="primary" (click)="myPanel.expanded = false">Continue</button>
+                                          </div>
+                                    </form>
+                              </div>
+                        </mat-expansion-panel>
+
+                        <mat-expansion-panel hideToggle class="address"  #myPanel  >
+                              <mat-expansion-panel-header>
+                                <mat-panel-title style="color:#333232">
+                                    Order Summary
+                                </mat-panel-title>            
+                              </mat-expansion-panel-header>
+                              <div class="imgDetails">
+                                    <img src="../../assets/book1.png">
+                                    <div class="bookDetails">
+                                          <label>Name</label>
+                                          <label>by Author</label>
+                                          <br>
+                                          <div style="display:flex; gap:1vw;">
+                                                <label>price</label>
+                                                <del>Mrp</del>
+                                          </div>
+                                          <br>
+                                          
+                                          <button style="margin-left: auto;" mat-raised-button color="primary" >CHECKOUT</button>
+                                    </div>      
+                                          
+                              </div>
+                        </mat-expansion-panel>      
+      
 </div>
+<footer>
+      Copyright <mat-icon>copyright</mat-icon> 2020,BookStore Private Limited.All Rights Reserved
+</footer>

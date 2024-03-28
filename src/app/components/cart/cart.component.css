@@ -2,13 +2,70 @@
       display:flex;
       flex-direction: column;
       width:100vw;
-      height:100vh;
-      padding:5vw;
-      gap:5%;
+      height:auto;
+      padding:8vh 13vw;
+      gap:2vh;
+      box-sizing: border-box;
+}
+.cartDetails{
+      width:57vw;
+      height:auto;
+      padding:1vw 2vw;
+      border:1px solid #DCDCDC;
+      box-sizing: border-box;
+
+}
+.cartHeading{
+      height:10vh;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 }
 
-.cartDetails{
-      width:80vw;
-      height:20vh;
-      border:1px solid black;
+.imgDetails{
+      display:flex;
+      gap:3vw;
+      padding:2vh;
+}
+
+.imgDetails img{
+      width:8vw;
+      height:18vh;
+}
+
+.bookDetails{
+      width:100vw;
+      display:flex;
+      flex-direction: column;
+      gap:1vh;
+}
+
+.address{
+      width:57vw;
+      border:1px solid #DCDCDC;
+}
+
+.order{
+      width:57vw;
+      height:10vh;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      border:1px solid#DCDCDC;
+}
+
+.addDet{
+      display:flex;
+      flex-direction: column;
+}
+
+footer{
+      text-align: center;     
+      color:white;
+      background-color: black;
+}
+
+#order-button{
+      position:relative;
+      float:right;
 }

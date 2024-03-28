@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { BookService } from 'src/app/services/book/book.service';
 
@@ -32,6 +32,9 @@ export class BookInfoComponent implements OnInit {
   value: number = 0;
   stars: number[] = [1, 2, 3, 4, 5];
   comment: string='';
+  cartState: boolean=false;
+  bookQuantity: number=0;
+  quantity: number=0;
  
 
   constructor(public bookService:BookService, private route:ActivatedRoute , public router:Router){}
@@ -47,6 +50,7 @@ export class BookInfoComponent implements OnInit {
         if(item._id==idParam)
         {
           this.book=item;
+          this.quantity=item.quantity;
           console.log(item);
         }
       }});
@@ -86,8 +90,27 @@ export class BookInfoComponent implements OnInit {
     }
   }
 
-  goToCart(){
-    this.router.navigate(["home/cart"]);
+  addToCart(){
+    this.cartState=true;
+    if(this.book._id){
+      this.bookService.postToCart(this.book._id).subscribe((result)=>{console.log(result);},
+        (error)=>{console.log(error);})
+    }
   }
-  
+
+  reduceBook(){
+    if(this.bookQuantity>0)
+    {
+      this.bookQuantity-=1;
+    }
+  }
+
+  incrementBook(){
+    if(this.bookQuantity<this.quantity){
+      this.bookQuantity+=1;
+    }
+  }
+  sendBookQuantity(){
+
+  }
 }

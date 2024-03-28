@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  constructor(public router:Router){
+  bookQuantity:number=0;
+  constructor(public router:Router, public dataService:DataService){
   }
   gotoLogin(){
     this.router.navigate([""]);
+  }
+  gotoCart()
+  {
+    this.router.navigate(['/home/cart'])
   }
 }

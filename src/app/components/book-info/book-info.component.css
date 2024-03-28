@@ -31,6 +31,7 @@
       display:flex;
       justify-content: center;
       align-items: center;
+      padding:0 1vw;
 }
 .imgBook{
       width:26vw;
@@ -38,6 +39,8 @@
 }
 .buttonCnt{
       display:flex;
+      margin-left:3vw;
+      width:27vw;
       justify-content: space-between;
 }
 .buttonCnt button{
