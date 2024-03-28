@@ -39,5 +39,11 @@ export class BookService {
   getCartBooks(){
     return this.http.get(`${this.baseUrl}/get_cart_items`,{headers:this.authHeader});
   }
+  updateCartQuantity(id:string,data:any){
+    return this.http.put(`${this.baseUrl}/cart_item_quantity/${id}`,data,{headers:this.authHeader});
+  }
+  removeBook(id:string){
+    return this.http.delete(`${this.baseUrl}/remove_cart_item/${id}`,{headers:this.authHeader});
+  }
 }
 

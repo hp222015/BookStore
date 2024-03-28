@@ -1,6 +1,6 @@
 <div class="cartOuter">
       <div>
-            <span style="color:#9D9D9D">Home/</span>
+            <span style="color:#9D9D9D" (click)="goToHome()">Home/</span>
             <span>My cart</span>
       </div>
       <div class="cartDetails">
@@ -26,14 +26,14 @@
                                           </div>
                                           <br>
                                           <div  style="display:flex; gap:10px;">
-                                                <button style="clip-path: circle();border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="reduceBook(cartDetails[i].quantityToBuy)">-</button>
-                                                <div style="width:3vw; display: flex; justify-content: center; align-items: center; border: 1px solid #DBDBDB;" >{{bookQuantity}}</div>
-                                                <button style="border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="incrementBook(cartDetails[i].quantityToBuy,book.quantity)">+</button>
-                                                <label>Remove</label> 
+                                                <button style="clip-path: circle();border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="reduceBook(quantityToBuyList[i])">-</button>
+                                                <div style="width:3vw; display: flex; justify-content: center; align-items: center; border: 1px solid #DBDBDB;" >{{quantityToBuyList[i]}}</div>
+                                                <button style="border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="incrementBook(quantityToBuyList[i],book.quantity)">+</button>
+                                                <label (click)="removeBook(cartDetails[i]._id,book._id)">Remove</label> 
                                           </div>
                                     </div>
                         </div>
-                        <button mat-raised-button color="primary" id="order-button">PLACE ORDER</button>   
+                        <button mat-raised-button color="primary" id="order-button" (click)="checkout()">PLACE ORDER</button>   
       </div>
                         <mat-expansion-panel hideToggle class="address"  #myPanel  >
                               <mat-expansion-panel-header *ngIf="!myPanel.expanded" >

@@ -23,9 +23,9 @@
                         <button class="graytext" mat-menu-item><mat-icon >favorite</mat-icon>Wishlist</button>
                   </div>
             </mat-menu>
-            <div class="icons" (click)="gotoCart()">
+            <div matBadge={{bookQuantity}} class="icons" (click)="gotoCart()">
                   <mat-icon>shopping_cart</mat-icon>
-                  <label matBadge="4" >Cart</label>
+                  <label >Cart</label>
             </div>
       </div>
 </div>

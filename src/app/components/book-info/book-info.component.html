@@ -17,10 +17,9 @@
                         </div>
                         <div class="buttonCnt">
                               <button *ngIf="!cartState" mat-raised-button color="primary" [ngStyle]="{'background-color':'#A03037'}" (click)="addToCart()">ADD TO BAG</button>
-                              <!-- <button *ngIf="cartState" mat-raised-button color="primary" [ngStyle]="{'background-color':'#A03037'}" (click)="goToCart()">1to 10</button> -->
                               <div *ngIf="cartState" style="display:flex; gap:2px">
                                     <button style="clip-path: circle(); border:none; width:2vw;" (click)="reduceBook()"> -</button>
-                                    <div style="width:3vw; display: flex; justify-content: center; align-items: center;" (click)="sendBookQuantity()">{{bookQuantity}}</div>
+                                    <div style="width:3vw; display: flex; justify-content: center; align-items: center;" >{{bookQuantity}}</div>
                                     <button style="clip-path: circle(); border:none; width:2vw;" (click)="incrementBook()"> + </button>
                               </div>
                               <button mat-raised-button color="primary" [ngStyle]="{'background-color':'#333333'}"><mat-icon>favorite</mat-icon>WISHLIST</button>

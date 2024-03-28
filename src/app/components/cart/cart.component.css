@@ -66,6 +66,7 @@ footer{
 }
 
 #order-button{
+      margin-top: 2vh;
       position:relative;
       float:right;
 }

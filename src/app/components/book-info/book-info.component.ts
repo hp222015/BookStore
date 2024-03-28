@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { BookService } from 'src/app/services/book/book.service';
 
@@ -20,6 +20,12 @@ interface reviewObj{
   "rating":number,
   "comment":string  
 }
+interface cartObj{
+  "product_id":bookDetails,
+  "quantityToBuy": number,
+  "_id":string
+}
+
 
 @Component({
   selector: 'app-book-info',
@@ -35,6 +41,8 @@ export class BookInfoComponent implements OnInit {
   cartState: boolean=false;
   bookQuantity: number=0;
   quantity: number=0;
+  cartItem: cartObj[]=[];
+  cartItemId: string='';
  
 
   constructor(public bookService:BookService, private route:ActivatedRoute , public router:Router){}
@@ -59,6 +67,7 @@ export class BookInfoComponent implements OnInit {
     });
     }
   }
+  
   goHome(){
     this.router.navigate(['/dashboard']);
   }
@@ -90,6 +99,7 @@ export class BookInfoComponent implements OnInit {
     }
   }
 
+  
   addToCart(){
     this.cartState=true;
     if(this.book._id){
@@ -97,11 +107,12 @@ export class BookInfoComponent implements OnInit {
         (error)=>{console.log(error);})
     }
   }
-
+  
   reduceBook(){
     if(this.bookQuantity>0)
     {
       this.bookQuantity-=1;
+      this.sendBookQuantity();
     }
   }
 
@@ -109,8 +120,34 @@ export class BookInfoComponent implements OnInit {
     if(this.bookQuantity<this.quantity){
       this.bookQuantity+=1;
     }
+    this.sendBookQuantity();
   }
   sendBookQuantity(){
+    
+    this.bookService.getCartBooks().subscribe((result:any)=>{
+      this.cartItem=result.result;
+      this.cartItem.forEach((item)=>{if(item.product_id._id==this.book._id)
+         {
+          if(item._id)
+          {this.cartItemId=item._id;}
+        }});
+        console.log(this.cartItemId);
+    },
+    (error)=>{console.log(error);});
 
+    
+    
+    if(this.cartItemId)
+    {
+      const obj1={
+        "quantityToBuy": this.bookQuantity
+      }
+    this.bookService.updateCartQuantity(this.cartItemId,obj1).subscribe((result)=>{
+      console.log(result);
+      console.log('successful');
+    },
+    (error)=>{console.log(error);});
+    }
   }
+
 }
