@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { BookService } from 'src/app/services/book/book.service';
+import { DataService } from 'src/app/services/data/data.service';
 
 
 interface bookDetails {
@@ -20,7 +21,7 @@ interface reviewObj{
   "rating":number,
   "comment":string  
 }
-interface cartObj{
+interface cartDetailsObj{
   "product_id":bookDetails,
   "quantityToBuy": number,
   "_id":string
@@ -39,13 +40,14 @@ export class BookInfoComponent implements OnInit {
   stars: number[] = [1, 2, 3, 4, 5];
   comment: string='';
   cartState: boolean=false;
-  bookQuantity: number=0;
+  bookQuantityInCart: number=0;
   quantity: number=0;
-  cartItem: cartObj[]=[];
+  cartItem: cartDetailsObj[]=[];
   cartItemId: string='';
  
 
-  constructor(public bookService:BookService, private route:ActivatedRoute , public router:Router){}
+  constructor(public bookService:BookService, private route:ActivatedRoute , public router:Router, public dataService:DataService){}
+
   ngOnInit(): void {
 
     const idParam = this.route.snapshot.paramMap.get('id');
@@ -61,10 +63,15 @@ export class BookInfoComponent implements OnInit {
           this.quantity=item.quantity;
           console.log(item);
         }
-      }});
+      }
+    this.getCartItems();
+    },
+      (error)=>{console.log(error);});
     this.bookService.getFeedback(idParam).subscribe((result:any)=>{
         this.reviewList=result.result;
-    });
+    },
+    (error)=>{console.log(error);});
+
     }
   }
   
@@ -101,53 +108,79 @@ export class BookInfoComponent implements OnInit {
 
   
   addToCart(){
-    this.cartState=true;
-    if(this.book._id){
-      this.bookService.postToCart(this.book._id).subscribe((result)=>{console.log(result);},
+
+    if(this.book._id && this.bookQuantityInCart===0){
+      this.bookQuantityInCart+=1;
+      
+      this.bookService.postToCart(this.book._id).subscribe((result:any)=>{        
+        
+        console.log(result);
+        this.cartItemId=result.result._id;
+        this.sendBookQuantity();
+        this.cartState=true;
+      },
         (error)=>{console.log(error);})
     }
   }
   
+  getCartItems(){
+    this.bookService.getCartBooks().subscribe((result:any)=>{
+      this.cartItem=result.result;
+      this.cartItem.forEach((item)=>{
+        if(item.product_id._id===this.book._id)
+         {
+          console.log("Book Present in Cart");
+          this.cartState=true;
+          this.bookQuantityInCart=item.quantityToBuy;
+          console.log(`Book Quantity In Cart ${this.bookQuantityInCart}`);
+          this.cartItemId=item._id;
+        }
+        else{
+          console.log("Book not in cart");
+          this.cartState=false;
+          this.bookQuantityInCart=0;
+        }
+      });
+    
+    },
+    (error)=>{console.log(error);});
+  }
+
   reduceBook(){
-    if(this.bookQuantity>0)
+    if(this.bookQuantityInCart>1)
     {
-      this.bookQuantity-=1;
+      this.bookQuantityInCart-=1;
       this.sendBookQuantity();
     }
+   
   }
 
   incrementBook(){
-    if(this.bookQuantity<this.quantity){
-      this.bookQuantity+=1;
+    if(this.bookQuantityInCart<this.quantity){
+      this.bookQuantityInCart+=1;
+    }
+    else if(this.bookQuantityInCart===this.quantity)
+    {
+      window.alert("Quantity Reached");
     }
     this.sendBookQuantity();
   }
-  sendBookQuantity(){
-    
-    this.bookService.getCartBooks().subscribe((result:any)=>{
-      this.cartItem=result.result;
-      this.cartItem.forEach((item)=>{if(item.product_id._id==this.book._id)
-         {
-          if(item._id)
-          {this.cartItemId=item._id;}
-        }});
-        console.log(this.cartItemId);
-    },
-    (error)=>{console.log(error);});
-
-    
-    
+ 
+  sendBookQuantity(){   
     if(this.cartItemId)
-    {
+    {      
       const obj1={
-        "quantityToBuy": this.bookQuantity
+        "quantityToBuy": this.bookQuantityInCart
       }
     this.bookService.updateCartQuantity(this.cartItemId,obj1).subscribe((result)=>{
       console.log(result);
-      console.log('successful');
     },
-    (error)=>{console.log(error);});
+    (error)=>{console.log(error);});    
+    
     }
   }
 
+
 }
+
+

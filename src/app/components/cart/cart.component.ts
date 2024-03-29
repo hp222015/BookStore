@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book/book.service';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data/data.service';
 
 interface bookObj {
   "bookName":string,
@@ -28,13 +29,13 @@ export class CartComponent implements OnInit{
   cartBookList:bookObj[]=[];
   cartDetails:cartDetailsObj[]=[];
   quantityToBuyList:number[]=[];
+  cartValue:number=0;
+  count:number=0;
 
-  constructor( public bookService:BookService, public router:Router){
-
-  }
+  constructor( public bookService:BookService, public router:Router, public dataService:DataService){}
 
   ngOnInit(): void {
-    this.getCartItems();    
+    this.getCartItems();
   }
   
   getCartItems(){
@@ -49,55 +50,57 @@ export class CartComponent implements OnInit{
     (error)=>{console.log(error)});
   }
 
-  reduceBook(value:number){
-    if(value>0)
-     value--;
+  reduceBook(value:number,id:string,i:number){
+    if(value>1)
+     {value--;}
+    this.sendBookQuantity(value,id);
+    this.updateQuantityToBuyList(value,i);
+    
   }
 
-  incrementBook(value:number,avbl:number)
+  incrementBook(value:number,avbl:number,id:string,i:number)
   {
     if(value<avbl)
-      value++;
+      {value++;}
+    else if(value===avbl)
+    {
+      window.alert("Quantity Reached");
+    }
+    this.sendBookQuantity(value,id);
+    this.updateQuantityToBuyList(value,i);
+    
   }
 
-  // sendBookQuantity(){
-    
-  //   this.bookService.getCartBooks().subscribe((result:any)=>{
-  //     this.cartItem=result.result;
-  //     this.cartItem.forEach((item)=>{if(item.product_id._id==this.book._id)
-  //        {
-  //         if(item._id)
-  //         {this.cartItemId=item._id;}
-  //       }});
-  //       console.log(this.cartItemId);
-  //   },
-  //   (error)=>{console.log(error);});
+  sendBookQuantity(value: number, id:string){
+    const obj={
+      "quantityToBuy":value
+    }
+    this.bookService.updateCartQuantity(id,obj).subscribe((result)=>{console.log(result);},
+    (error)=>{console.log(error);});
+  }
 
-    
-    
-  //   if(this.cartItemId)
-  //   {
-  //     const obj1={
-  //       "quantityToBuy": this.bookQuantity
-  //     }
-  //   this.bookService.updateCartQuantity(this.cartItemId,obj1).subscribe((result)=>{
-  //     console.log(result);
-  //     console.log('successful');
-  //   },
-  //   (error)=>{console.log(error);});
-  //   }
-  // }
+  updateQuantityToBuyList(value:number,index:number){
+    this.quantityToBuyList[index]=value;
+    this.cartValue = this.quantityToBuyList.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue;
+      }, 0);
+    this.dataService.updateCartQuantity(this.cartValue);
+  }
 
-  removeBook(id:string,bookId:string){
+  removeBook(id:string,index:number){
     this.bookService.removeBook(id).subscribe((result)=>{console.log(result);
-    this.updateCartItems(bookId);},
+    this.cartBookList.splice(index, 1);
+    this.quantityToBuyList.splice(index, 1);
+    this.cartValue = this.quantityToBuyList.reduce((accumulator, currentValue) => {
+      return accumulator + currentValue;
+      }, 0);
+    this.dataService.updateCartQuantity(this.cartValue);
+  },
     (error)=>{console.log(error);}
-    );  
+    ); 
+    
   }
-  updateCartItems(bookId:string){
-    this.cartBookList=this.cartBookList.filter((book)=>{book._id!==bookId});
-    this.getCartItems();      
-  }
+
   goToHome(){
     this.router.navigate(['/dashboard']);
   }

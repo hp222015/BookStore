@@ -1,4 +1,4 @@
-<div class="cartOuter">
+<div class="cartOuter" >
       <div>
             <span style="color:#9D9D9D" (click)="goToHome()">Home/</span>
             <span>My cart</span>
@@ -26,17 +26,17 @@
                                           </div>
                                           <br>
                                           <div  style="display:flex; gap:10px;">
-                                                <button style="clip-path: circle();border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="reduceBook(quantityToBuyList[i])">-</button>
+                                                <button style="clip-path: circle();border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="reduceBook(quantityToBuyList[i],cartDetails[i]._id,i)">-</button>
                                                 <div style="width:3vw; display: flex; justify-content: center; align-items: center; border: 1px solid #DBDBDB;" >{{quantityToBuyList[i]}}</div>
-                                                <button style="border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="incrementBook(quantityToBuyList[i],book.quantity)">+</button>
-                                                <label (click)="removeBook(cartDetails[i]._id,book._id)">Remove</label> 
+                                                <button style="border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="incrementBook(quantityToBuyList[i],book.quantity,cartDetails[i]._id,i)">+</button>
+                                                <label (click)="removeBook(cartDetails[i]._id,i)">Remove</label> 
                                           </div>
                                     </div>
                         </div>
                         <button mat-raised-button color="primary" id="order-button" (click)="checkout()">PLACE ORDER</button>   
       </div>
-                        <mat-expansion-panel hideToggle class="address"  #myPanel  >
-                              <mat-expansion-panel-header *ngIf="!myPanel.expanded" >
+                        <mat-expansion-panel hideToggle class="address"  #addressPanel  >
+                              <mat-expansion-panel-header *ngIf="!addressPanel.expanded" >
                                 <mat-panel-title >
                                     Address Details
                                 </mat-panel-title>            
@@ -94,13 +94,13 @@
                                                       </mat-radio-group>
                                                           
                                                 </div>
-                                                <button style="margin-left: auto;" mat-raised-button color="primary" (click)="myPanel.expanded = false">Continue</button>
+                                                <button style="margin-left: auto;" mat-raised-button color="primary" (click)="addressPanel.expanded = false">Continue</button>
                                           </div>
                                     </form>
                               </div>
                         </mat-expansion-panel>
 
-                        <mat-expansion-panel hideToggle class="address"  #myPanel  >
+                        <mat-expansion-panel hideToggle class="address"  #addressPanel  >
                               <mat-expansion-panel-header>
                                 <mat-panel-title style="color:#333232">
                                     Order Summary
