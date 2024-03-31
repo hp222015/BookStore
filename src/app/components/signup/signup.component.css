@@ -1,3 +1,7 @@
+/* note that ng deep is used for  changing the style of child component from parent component
+and angular uses emulated encapsulation which means that if you applied some css in child component and 
+like to all h1 tags directly  then that css won't get applied in parent component. */
+
 .outer{
 width: 100vw;
 height: 100vh;
@@ -9,6 +13,18 @@ display: flex;
 justify-content: center;
 align-items: center;
 }
+
+/* .mat-tab-group.mat-primary .mat-tab-label.mat-tab-label-active {
+      color: black !important; 
+      font-weight: bold !important; 
+    }
+
+.mat-ink-bar {
+background: #A03037!important;
+width:10px!important;
+} */
+
+
 
 .inner1{
       background-color: white;

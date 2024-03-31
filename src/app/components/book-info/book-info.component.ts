@@ -111,6 +111,7 @@ export class BookInfoComponent implements OnInit {
 
     if(this.book._id && this.bookQuantityInCart===0){
       this.bookQuantityInCart+=1;
+      this.dataService.updateBookInfoQuantity(1);
       
       this.bookService.postToCart(this.book._id).subscribe((result:any)=>{        
         
@@ -151,6 +152,7 @@ export class BookInfoComponent implements OnInit {
     {
       this.bookQuantityInCart-=1;
       this.sendBookQuantity();
+      this.dataService.updateBookInfoQuantity(-1);
     }
    
   }
@@ -158,12 +160,13 @@ export class BookInfoComponent implements OnInit {
   incrementBook(){
     if(this.bookQuantityInCart<this.quantity){
       this.bookQuantityInCart+=1;
+      this.sendBookQuantity();
+      this.dataService.updateBookInfoQuantity(1);
     }
     else if(this.bookQuantityInCart===this.quantity)
     {
       window.alert("Quantity Reached");
     }
-    this.sendBookQuantity();
   }
  
   sendBookQuantity(){   
@@ -178,6 +181,7 @@ export class BookInfoComponent implements OnInit {
     (error)=>{console.log(error);});    
     
     }
+    
   }
 
 

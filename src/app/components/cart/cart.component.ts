@@ -49,6 +49,8 @@ export class CartComponent implements OnInit{
     },
     (error)=>{console.log(error)});
   }
+  
+
 
   reduceBook(value:number,id:string,i:number){
     if(value>1)

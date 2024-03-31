@@ -1,3 +1,21 @@
+table{
+    border:1px solid#DCDCDC
+}
+thead{
+      background-color: #FAFAFA;
+      height:8vh;      
+}
+th{
+      text-align: center;
+}
+td {
+      text-align: center;
+      border-right: 1px solid black;
+  }
+tbody{
+      border:1px solid black;
+      height:10vh;
+}
 footer{
       text-align: center;     
       color:white;

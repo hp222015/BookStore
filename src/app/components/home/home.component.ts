@@ -40,5 +40,7 @@ export class HomeComponent implements OnInit {
   updatebookQuantity(){
     this.dataService.cart$.subscribe((result)=>{this.bookQuantity=result;},
     (error)=>{console.log(error);});
+    this.dataService.book$.subscribe((value)=>{this.bookQuantity+=value;},
+    (error)=>{console.log(error);});
   }
 }
