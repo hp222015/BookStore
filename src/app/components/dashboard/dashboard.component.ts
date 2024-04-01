@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit {
   bookList:bookObj[]=[];
   currentPage: number =1;
   itemsPerPage: number=8;
+  sorted: string='';
 
   constructor(public bookService: BookService, public router:Router){}
 
@@ -30,10 +31,27 @@ export class DashboardComponent implements OnInit {
        this.getBooks();
   }
 
+  sortIncreasingPrice(){
+    this.sorted='low_to_high';
+    this.getBooks();
+  }
+
+  sortDecreasingPrice(){
+    this.sorted='high_to_low';
+    this.getBooks();
+  }
+
   getBooks(){
     this.bookService.getBooks().subscribe((result:any)=>
     {
       this.bookList=result.result;
+      if(this.sorted==='low_to_high'){
+        this.bookList.sort((a, b) => a.discountPrice - b.discountPrice);
+      }
+      else if(this.sorted==='high_to_low'){
+        this.bookList.sort((a, b) => b.discountPrice - a.discountPrice);
+      }
+
     },
     (error)=>{console.log(error);});
   }
@@ -66,4 +84,6 @@ export class DashboardComponent implements OnInit {
   onPageChange(pageNumber:number):void{
     this.currentPage =pageNumber;
   }
+
+  
 }

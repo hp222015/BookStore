@@ -33,95 +33,103 @@
                                           </div>
                                     </div>
                         </div>
-                        <button mat-raised-button color="primary" id="order-button" (click)="checkout()">PLACE ORDER</button>   
+                        <div style="display:flex; justify-content: flex-end;">
+                              <button *ngIf="!isExpanded"  mat-raised-button color="primary" id="order-button" (click)=" expandAddressPanel();" >PLACE ORDER</button>   
+                        </div>
       </div>
-                        <mat-expansion-panel hideToggle class="address"  #addressPanel  >
-                              <mat-expansion-panel-header *ngIf="!addressPanel.expanded" >
-                                <mat-panel-title >
-                                    Address Details
-                                </mat-panel-title>            
-                              </mat-expansion-panel-header>
-                              <div style="padding:2vw;">
-
-                                    <form>
-                                          <div style="display:flex; flex-direction: column; gap:2vh;">
-                                                <div style="display:flex; justify-content: space-between; align-items: center;">
-                                                      <mat-label style="font-size: medium; font-weight: bolder; color:#333232;">Customer Details</mat-label>
-                                                      <button  mat-raised-button color="#FFFFFF" style="border:1px solid #A03037; color:#A03037;">Add New Address</button>
-                                                </div>
-                                                <div style="display:flex; gap:10px;">                                                      
-                                                      <div class="addDet">
-                                                            <mat-label>FullName</mat-label>
-                                                            <mat-form-field appearance="outline">
-                                                                  <input matInput>
-                                                            </mat-form-field>
-                                                      </div>
-                                                      <div class="addDet">
-                                                            <mat-label>Mobile Number</mat-label>
-                                                            <mat-form-field appearance="outline">
-                                                                  <input matInput>
-                                                            </mat-form-field>
-                                                      </div>
-                                                </div>
-                                                <label style="font-weight: bolder;">1. Work</label>
-                                                <div class="addDet">
-                                                      <mat-label>Address</mat-label>
-                                                      <mat-form-field appearance="outline" style="width:57%;">
-                                                            <textarea matInput></textarea>
-                                                      </mat-form-field>
-                                                </div>
-                                                <div style="display:flex; gap:10px;">
-                                                      <div class="addDet">
-                                                            <mat-label>city/town</mat-label>
-                                                            <mat-form-field appearance="outline">
-                                                                  <input matInput>
-                                                            </mat-form-field>
-                                                      </div>
-                                                      <div class="addDet">
-                                                            <mat-label>State</mat-label>
-                                                            <mat-form-field appearance="outline">
-                                                                  <input matInput>
-                                                            </mat-form-field>
-                                                      </div>
-                                                </div>
+                        <mat-expansion-panel hideToggle class="address"  #addressPanel [expanded]="isExpanded" >
+                              
+                                    <mat-expansion-panel-header *ngIf="!addressPanel.expanded" >
+                                      <mat-panel-title >
+                                          Address Details
+                                      </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <div style="padding:2vw;">
+                                          <form>
                                                 <div style="display:flex; flex-direction: column; gap:2vh;">
-                                                      <mat-label>Type</mat-label>  
-                                                                     
-                                                      <mat-radio-group aria-label="Select an option">
-                                                            <mat-radio-button value="1">Home</mat-radio-button>
-                                                            <mat-radio-button value="2">Work</mat-radio-button>
-                                                            <mat-radio-button value="3">Other</mat-radio-button>
-                                                      </mat-radio-group>
-                                                          
+                                                      <div style="display:flex; justify-content: space-between; align-items: center;">
+                                                            <mat-label style="font-size: medium; font-weight: bolder; color:#333232;">Customer Details</mat-label>
+                                                            <button  mat-raised-button color="#FFFFFF" style="border:1px solid #A03037; color:#A03037;">Add New Address</button>
+                                                      </div>
+                                                      <div style="display:flex; gap:10px;">
+                                                            <div class="addDet">
+                                                                  <mat-label>FullName</mat-label>
+                                                                  <mat-form-field appearance="outline">
+                                                                        <input matInput>
+                                                                  </mat-form-field>
+                                                            </div>
+                                                            <div class="addDet">
+                                                                  <mat-label>Mobile Number</mat-label>
+                                                                  <mat-form-field appearance="outline">
+                                                                        <input matInput>
+                                                                  </mat-form-field>
+                                                            </div>
+                                                      </div>
+                                                      <!-- <label style="font-weight: bolder;"> Work</label> -->
+                                                      <label style="font-weight: bolder;">{{ selectedAddressType === '1' ? 'Home' :  (selectedAddressType === '2' ? 'Work' :'Other')}}</label>
+
+                                                      <div class="addDet">
+                                                            <mat-label>Address</mat-label>
+                                                            <mat-form-field appearance="outline" style="width:57%;">
+                                                                  <textarea matInput></textarea>
+                                                            </mat-form-field>
+                                                      </div>
+                                                      <div style="display:flex; gap:10px;">
+                                                            <div class="addDet">
+                                                                  <mat-label>city/town</mat-label>
+                                                                  <mat-form-field appearance="outline">
+                                                                        <input matInput>
+                                                                  </mat-form-field>
+                                                            </div>
+                                                            <div class="addDet">
+                                                                  <mat-label>State</mat-label>
+                                                                  <mat-form-field appearance="outline">
+                                                                        <input matInput>
+                                                                  </mat-form-field>
+                                                            </div>
+                                                      </div>
+                                                      <div style="display:flex; flex-direction: column; gap:2vh;">
+                                                            <mat-label>Type</mat-label>
+                                                            <!-- there is a change event in radio group which is used here and the event is passed in a function and later
+                                                            with the event.value we can  access which radio button is pressed -->
+                                                            <mat-radio-group aria-label="Select an option" (change)="addressTypeChanged($event)">
+                                                                  <mat-radio-button value="1" >Home</mat-radio-button>
+                                                                  <mat-radio-button value="2" >Work</mat-radio-button>
+                                                                  <mat-radio-button value="3" >Other</mat-radio-button>
+                                                            </mat-radio-group>
+                                    
+                                                      </div>
+                                                      <button style="margin-left: auto;" mat-raised-button color="primary" (click)="orderPanel.expanded = true">Continue</button>
                                                 </div>
-                                                <button style="margin-left: auto;" mat-raised-button color="primary" (click)="addressPanel.expanded = false">Continue</button>
-                                          </div>
-                                    </form>
+                                          </form>
                               </div>
                         </mat-expansion-panel>
 
-                        <mat-expansion-panel hideToggle class="address"  #addressPanel  >
+                        <mat-expansion-panel hideToggle class="address"  #orderPanel  >
                               <mat-expansion-panel-header>
                                 <mat-panel-title style="color:#333232">
                                     Order Summary
                                 </mat-panel-title>            
                               </mat-expansion-panel-header>
-                              <div class="imgDetails">
+                              <div class="imgDetails" *ngFor="let book of cartBookList;">
                                     <img src="../../assets/book1.png">
                                     <div class="bookDetails">
-                                          <label>Name</label>
-                                          <label>by Author</label>
+                                          <label>{{book.bookName}}</label>
+                                          <label>by {{book.author}} </label>
                                           <br>
                                           <div style="display:flex; gap:1vw;">
-                                                <label>price</label>
-                                                <del>Mrp</del>
+                                                <label>{{book.discountPrice}}</label>
+                                                <del>{{book.price}}</del>
                                           </div>
                                           <br>
                                           
-                                          <button style="margin-left: auto;" mat-raised-button color="primary" >CHECKOUT</button>
                                     </div>      
                                           
                               </div>
+                              <div style="display:flex; justify-content: flex-end;">
+                                    <button  mat-raised-button color="primary" (click)="checkout();" >CHECKOUT</button>
+                              </div>
+
                         </mat-expansion-panel>      
       
 </div>

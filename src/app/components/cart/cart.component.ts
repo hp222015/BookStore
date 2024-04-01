@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,ViewChild } from '@angular/core';
 import { BookService } from 'src/app/services/book/book.service';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
@@ -31,6 +31,8 @@ export class CartComponent implements OnInit{
   quantityToBuyList:number[]=[];
   cartValue:number=0;
   count:number=0;
+  isExpanded:boolean=false;
+  selectedAddressType: string ='';
 
   constructor( public bookService:BookService, public router:Router, public dataService:DataService){}
 
@@ -38,6 +40,14 @@ export class CartComponent implements OnInit{
     this.getCartItems();
   }
   
+  expandAddressPanel():void{
+    this.isExpanded=true;
+  }
+
+  addressTypeChanged(event: any) {
+    this.selectedAddressType = event.value;
+  }
+
   getCartItems(){
     this.bookService.getCartBooks().subscribe((result:any)=>{
     console.log(result);
