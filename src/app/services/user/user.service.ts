@@ -11,10 +11,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class UserService {
   baseUrl: string ="https://bookstore.incubation.bridgelabz.com"
-  private authHeader = new HttpHeaders({
-    'Accept':"application/json",
-    Authorization: localStorage.getItem('token') ||""
-  })
+  // private authHeader = new HttpHeaders({
+  //   'Accept':"application/json",
+  //   Authorization: localStorage.getItem('token') ||""
+  // })
 
   constructor(public http: HttpClient) {}
 
@@ -25,6 +25,14 @@ export class UserService {
   loginUser(data:object)
   {
     return this.http.post(`${this.baseUrl}/bookstore_user/login`,data)
+  }
+  isLoggedIn(){
+    if(localStorage.getItem('token'))
+    {
+      return true;
+    }
+    else
+    return false;
   }
   // verifyUser(data:VerificationData)
   // {

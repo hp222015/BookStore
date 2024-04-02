@@ -13,6 +13,12 @@
       height: 5vh;
 }
 
+/* .mat-mdc-input-element searchInput{
+      padding-left: 1vw;
+      border:none;
+} */
+
+
 .icons{
       display: flex;
       flex-direction: column;

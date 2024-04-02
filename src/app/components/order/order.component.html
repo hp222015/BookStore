@@ -6,7 +6,7 @@
                   further communication..
             </p>
         </div>
-        <table>
+        <!-- <table>
             <thead>
                   <tr>
                       <th>Email us</th>
@@ -22,9 +22,34 @@
                               complex, near Kumarakom restaurant, HSR Layout,
                               Bangalore 560034</td>
                   </tr>                    
-        </table>
+        </table> -->
+        
+        <table mat-table [dataSource]="dataSource" >
+
+            <ng-container matColumnDef="email" >
+              <th mat-header-cell *matHeaderCellDef> Email Us </th>
+              <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+            </ng-container>
+          
+            <!-- Contact_us Column -->
+            <ng-container matColumnDef="contact">
+              <th mat-header-cell *matHeaderCellDef> Contact Us </th>
+              <td mat-cell *matCellDef="let element"> {{element.contact}} </td>
+            </ng-container>
+          
+            <!-- Address Column -->
+            <ng-container matColumnDef="address">
+              <th mat-header-cell *matHeaderCellDef> Address </th>
+              <td mat-cell *matCellDef="let element" style="border-right: none;"> {{element.address}} </td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          
+          
         <div>
-            <button mat-raised-button color="primary" (click)="goToDashboard()">Continue Shopping</button>
+            <button mat-raised-button [ngStyle]="{'background-color':'#3371B5', 'color':'white'}" (click)="goToDashboard()">Continue Shopping</button>
         </div>  
           
       </div>

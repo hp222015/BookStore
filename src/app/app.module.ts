@@ -17,7 +17,6 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatToolbarModule} from '@angular/material/toolbar';
 import { AppComponent } from './app.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { ForgotPswdComponent } from './components/forgot-pswd/forgot-pswd.component';
@@ -29,6 +28,7 @@ import { OrderComponent } from './components/order/order.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BooksComponent } from './components/books/books.component';
+import { AuthGuardService } from './services/authentication/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import { BooksComponent } from './components/books/books.component';
     MatBadgeModule,
     MatRadioModule
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

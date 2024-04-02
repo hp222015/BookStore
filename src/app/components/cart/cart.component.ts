@@ -1,4 +1,5 @@
-import { Component,OnInit,ViewChild } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
+import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import { BookService } from 'src/app/services/book/book.service';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
@@ -32,13 +33,26 @@ export class CartComponent implements OnInit{
   cartValue:number=0;
   count:number=0;
   isExpanded:boolean=false;
+  isOrderExpanded:boolean=false;
   selectedAddressType: string ='';
+  AddressForm !: FormGroup;
 
-  constructor( public bookService:BookService, public router:Router, public dataService:DataService){}
+
+  constructor( public bookService:BookService, public router:Router, public dataService:DataService, private formBuilder:FormBuilder){
+    this.AddressForm=this.formBuilder.group({
+      name:["",Validators.required],
+      phNo:["",Validators.required],
+      address:["",Validators.required],
+      city:["",Validators.required],
+      state:["",Validators.required],
+      addressType:["",Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     this.getCartItems();
   }
+  
   
   expandAddressPanel():void{
     this.isExpanded=true;
@@ -118,5 +132,9 @@ export class CartComponent implements OnInit{
   }
   checkout(){
     this.router.navigate(['/home/order']);
+  }
+
+  addAddress(){
+    this.isOrderExpanded=true;
   }
 }
