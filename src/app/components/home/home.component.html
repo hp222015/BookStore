@@ -3,7 +3,7 @@
             <img src="../../../assets/book.png">
             <label style="color: white">Bookstore</label>
       </div>
-      <input class="searchInput" [ngStyle]="{'padding-left':'0.5vw'}" matInput type="text" placeholder="Search">
+      <input class="searchInput" [ngStyle]="{'padding-left':'0.5vw'}" matInput type="text" placeholder="Search" (input)="onSearch($event)" >
       <div style="display:flex; gap:2vw; align-items: center;">
             <button mat-button [matMenuTriggerFor]="menu">
                   <div class="icons" >

@@ -16,6 +16,7 @@
       
       </div>
       <div style="display:flex; flex-wrap:wrap; margin:0vw 8vw; gap:2vw;">
+            <!-- pagedBookList -->
             <div  *ngFor="let book of pagedBookList">
                   <app-books (click)="navigateToBook(book._id)" [bookDetails]="book"></app-books>
             </div>

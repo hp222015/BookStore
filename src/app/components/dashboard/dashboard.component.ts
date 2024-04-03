@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from 'src/app/services/book/book.service';
-
+import { SearchService } from 'src/app/services/search/search.service';
 
 interface bookObj {
   "bookName":string,
@@ -21,16 +21,32 @@ interface bookObj {
 export class DashboardComponent implements OnInit { 
 
   bookList:bookObj[]=[];
+  filteredBookList: bookObj[]=[];
   currentPage: number =1;
   itemsPerPage: number=8;
   sorted: string='';
 
-  constructor(public bookService: BookService, public router:Router){}
+  constructor(public bookService: BookService,
+     public router:Router,
+      public searchService:SearchService){}
 
   ngOnInit(): void {
        this.getBooks();
+       this.subscribeToSearchQuery();
   }
 
+  subscribeToSearchQuery(): void {
+    this.searchService.searchQuery$.subscribe(query => {
+      if (query.trim() !== '') {
+        this.filteredBookList = this.bookList.filter(book =>
+          book.bookName.toLowerCase().includes(query.toLowerCase()) ||
+          book.author.toLowerCase().includes(query.toLowerCase())
+        );
+      } else {
+        this.filteredBookList = [...this.bookList]; // Reset to show all books if search query is empty
+      }
+    });
+  }
   sortIncreasingPrice(){
     this.sorted='low_to_high';
     this.getBooks();
@@ -51,6 +67,7 @@ export class DashboardComponent implements OnInit {
       else if(this.sorted==='high_to_low'){
         this.bookList.sort((a, b) => b.discountPrice - a.discountPrice);
       }
+      this.filteredBookList = [...this.bookList];
 
     },
     (error)=>{console.log(error);});
@@ -78,7 +95,7 @@ export class DashboardComponent implements OnInit {
   }
 
   get pagedBookList(): bookObj[] {
-    return this.bookList.slice(this.startIndex, this.endIndex + 1);
+    return this.filteredBookList.slice(this.startIndex, this.endIndex + 1);
   }
 
   onPageChange(pageNumber:number):void{

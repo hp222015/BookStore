@@ -8,8 +8,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { OrderComponent } from './components/order/order.component';
 import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AuthGuardService } from './services/authentication/auth-guard.service';
-
+import { authGuard } from './Authorization/auth.guard';
 
 const routes: Routes = [  
   
@@ -25,31 +24,27 @@ const routes: Routes = [
   {
     path:"home",
     component:HomeComponent,
+    canActivate:[authGuard],
     children: [
       {
         path: "bookInfo/:id",
-        component:BookInfoComponent,
-        canActivate:[AuthGuardService]
+        component:BookInfoComponent
       },
       {
         path:"cart",
-        component:CartComponent,
-        canActivate:[AuthGuardService]
+        component:CartComponent
       },
       {
         path:"profile",
-        component:ProfileComponent,
-        canActivate:[AuthGuardService]
+        component:ProfileComponent
       },
       {
         path:"order",
-        component:OrderComponent,
-        canActivate:[AuthGuardService]
+        component:OrderComponent
       },
       {
         path:"wishlist",
-        component:WishlistComponent,
-        canActivate:[AuthGuardService]
+        component:WishlistComponent
       }  
     ]
   }

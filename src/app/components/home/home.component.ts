@@ -1,7 +1,8 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { BookService } from 'src/app/services/book/book.service';
 import { DataService } from 'src/app/services/data/data.service';
+import { SearchService } from 'src/app/services/search/search.service';
 
 interface cartObj
 {
@@ -16,13 +17,19 @@ export class HomeComponent implements OnInit {
   bookQuantity:number=0;
   cartDetails:cartObj[]=[];
 
-  constructor(public router:Router, public bookService:BookService, public dataService:DataService){
+  constructor(public router:Router, public bookService:BookService, public dataService:DataService, public searchService:SearchService){
   }
 
   ngOnInit(): void {
     this.getbookQuantity();
     this.updatebookQuantity();
   }
+
+  onSearch(event: Event): void {
+    const query = (event.target as HTMLInputElement).value;
+    this.searchService.setSearchQuery(query);
+  }
+
   gotoLogin(){
     this.router.navigate([""]);
   }
