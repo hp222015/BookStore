@@ -3,6 +3,7 @@ import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import { BookService } from 'src/app/services/book/book.service';
 import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data/data.service';
+import { SearchService } from 'src/app/services/search/search.service';
 
 interface bookObj {
   "bookName":string,
@@ -28,6 +29,7 @@ interface cartDetailsObj{
 export class CartComponent implements OnInit{
   bookQuantity:number=0;
   cartBookList:bookObj[]=[];
+  filteredCartBookList:bookObj[]=[];
   cartDetails:cartDetailsObj[]=[];
   quantityToBuyList:number[]=[];
   cartValue:number=0;
@@ -38,7 +40,8 @@ export class CartComponent implements OnInit{
   AddressForm !: FormGroup;
 
 
-  constructor( public bookService:BookService, public router:Router, public dataService:DataService, private formBuilder:FormBuilder){
+  constructor( public bookService:BookService, public router:Router, public dataService:DataService, private formBuilder:FormBuilder,
+    public searchService:SearchService){
     this.AddressForm=this.formBuilder.group({
       name:["",Validators.required],
       phNo:["",Validators.required],
@@ -50,7 +53,8 @@ export class CartComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.getCartItems();
+    this.getCartItems();    
+    this.subscribeSearchQuery();
   }
   
   
@@ -62,6 +66,22 @@ export class CartComponent implements OnInit{
     this.selectedAddressType = event.value;
   }
 
+  subscribeSearchQuery():void{
+    
+    this.searchService.searchQuery$.subscribe((query)=>{
+      if(query.trim() !=='')
+      {
+      this.filteredCartBookList=this.cartBookList.filter(book=>
+      book.bookName.toLowerCase().includes(query.toLowerCase())
+      ||book.author.toLowerCase().includes(query.toLowerCase()));
+      }
+      else{
+       this.filteredCartBookList=[...this.cartBookList];
+      }
+     },
+     (error)=>{console.log(error);});
+  }
+
   getCartItems(){
     this.bookService.getCartBooks().subscribe((result:any)=>{
     console.log(result);
@@ -69,7 +89,9 @@ export class CartComponent implements OnInit{
     this.cartDetails.forEach((details:cartDetailsObj)=>{
       this.cartBookList.push(details.product_id);
       this.quantityToBuyList.push(details.quantityToBuy);
-    })
+    });
+    
+    this.filteredCartBookList = this.cartBookList;
     },
     (error)=>{console.log(error)});
   }

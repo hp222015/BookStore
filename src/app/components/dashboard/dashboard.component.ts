@@ -42,7 +42,8 @@ export class DashboardComponent implements OnInit {
           book.bookName.toLowerCase().includes(query.toLowerCase()) ||
           book.author.toLowerCase().includes(query.toLowerCase())
         );
-      } else {
+      }
+       else {
         this.filteredBookList = [...this.bookList]; // Reset to show all books if search query is empty
       }
     });

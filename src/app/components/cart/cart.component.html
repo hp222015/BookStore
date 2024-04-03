@@ -14,7 +14,7 @@
                         </mat-select>
                   </mat-form-field>
             </div>
-                        <div class="imgDetails" *ngFor="let book of cartBookList; let i = index">
+                        <div class="imgDetails" *ngFor="let book of filteredCartBookList; let i = index">
                               <img src="../../assets/book1.png">
                                     <div class="bookDetails">
                                           <label>{{book.bookName}}</label>
