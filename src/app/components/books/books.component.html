@@ -2,15 +2,12 @@
       <div class="bookimg">
             <img src="../../assets/book1.png">            
       </div>
-      <div class="outStock" *ngIf="bookDetails.quantity==3">
-            <label style="color:black">OUT OF STOCK</label>
-      </div>
       <div class="bookcontent">
             <span>{{bookDetails.bookName}}</span>
             <span class="grayCol">by {{bookDetails.author}}</span>
             <div style="display:flex;">
                  <div class=rating>
-                        <span>4.5</span>
+                        <span style="padding:5px;">4.5</span>
                         <mat-icon style="font-size: 12px;">star</mat-icon>
                   </div>
                   <label class="grayCol">(20)</label>

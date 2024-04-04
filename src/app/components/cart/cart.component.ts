@@ -38,6 +38,7 @@ export class CartComponent implements OnInit{
   isOrderExpanded:boolean=false;
   selectedAddressType: string ='';
   AddressForm !: FormGroup;
+  totalPrice: number=0;
 
 
   constructor( public bookService:BookService, public router:Router, public dataService:DataService, private formBuilder:FormBuilder,
@@ -159,4 +160,6 @@ export class CartComponent implements OnInit{
   addAddress(){
     this.isOrderExpanded=true;
   }
+
+  
 }

@@ -1,138 +1,220 @@
-<div class="cartOuter" >
-      <div>
-            <span style="color:#9D9D9D" (click)="goToHome()">Home/</span>
-            <span>My cart</span>
+<div class="cartOuter">
+  <div>
+    <span style="color: #9d9d9d" (click)="goToHome()">Home/</span>
+    <span>My cart</span>
+  </div>
+  <div class="cartDetails">
+    <div class="cartHeading">
+      <label style="color: #333232">My cart(1)</label>
+      <mat-form-field appearance="outline" style="height: 5vh; z-index: -1">
+        <mat-label
+          style="display: flex; justify-content: center; align-items: center"
+          ><mat-icon>location_on</mat-icon>Location</mat-label
+        >
+        <mat-select>
+          <mat-option>Home</mat-option>
+          <mat-option>Office</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div
+      class="imgDetails"
+      *ngFor="let book of filteredCartBookList; let i = index"
+    >
+      <img src="../../assets/book1.png" />
+      <div class="bookDetails">
+        <label>{{ book.bookName }}</label>
+        <label>by {{ book.author }} </label>
+        <br />
+        <div style="display: flex; gap: 1vw">
+          <label>Rs {{ book.discountPrice }}</label>
+          <del>Rs {{ book.price }}</del>
+        </div>
+        <br />
+        <div style="display: flex; gap: 10px">
+          <button
+            style="border-radius: 50%; border: 1px solid #dbdbdb; width: 22px"
+            (click)="reduceBook(quantityToBuyList[i], cartDetails[i]._id, i)"
+          >
+            -
+          </button>
+          <div
+            style="
+              width: 3vw;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: 1px solid #dbdbdb;
+            "
+          >
+            {{ quantityToBuyList[i] }}
+          </div>
+          <button
+            style="border-radius: 50%; border: 1px solid #dbdbdb; width: 22px"
+            (click)="
+              incrementBook(
+                quantityToBuyList[i],
+                book.quantity,
+                cartDetails[i]._id,
+                i
+              )
+            "
+          >
+            +
+          </button>
+          <label (click)="removeBook(cartDetails[i]._id, i)">Remove</label>
+        </div>
       </div>
-      <div class="cartDetails">
-            <div class="cartHeading">
-                  <label style="color:#333232">My cart(1)</label>
-                  <mat-form-field appearance="outline" style="height:5vh">
-                        <mat-label style="display:flex; justify-content: center; align-items: center;"><mat-icon>location_on</mat-icon>Location</mat-label>
-                        <mat-select>
-                          <mat-option>Home</mat-option>
-                          <mat-option>Office</mat-option>
-                        </mat-select>
-                  </mat-form-field>
+    </div>
+    <div style="display: flex; justify-content: flex-end;">
+      <button
+        *ngIf="!isExpanded"
+        mat-raised-button
+        color="primary"
+        id="order-button"
+        (click)="expandAddressPanel()"
+      >
+        PLACE ORDER
+      </button>
+    </div>
+  </div>
+  <mat-expansion-panel
+    hideToggle
+    class="address"
+    #addressPanel
+    [expanded]="isExpanded"
+    style="position: relative; z-index: -1"
+  >
+    <mat-expansion-panel-header *ngIf="!addressPanel.expanded">
+      <mat-panel-title> Address Details </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div style="padding: 2vw">
+      <form [formGroup]="AddressForm" (ngSubmit)="addAddress()">
+        <div style="display: flex; flex-direction: column; gap: 2vh">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            "
+          >
+            <mat-label
+              style="font-size: medium; font-weight: bolder; color: #333232"
+              >Customer Details</mat-label
+            >
+            <button
+              mat-raised-button
+              color="#FFFFFF"
+              style="border: 1px solid #a03037; color: #a03037"
+            >
+              Add New Address
+            </button>
+          </div>
+          <div style="display: flex; gap: 10px">
+            <div class="addDet">
+              <mat-label>FullName</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="name" />
+              </mat-form-field>
             </div>
-                        <div class="imgDetails" *ngFor="let book of filteredCartBookList; let i = index">
-                              <img src="../../assets/book1.png">
-                                    <div class="bookDetails">
-                                          <label>{{book.bookName}}</label>
-                                          <label>by {{book.author}} </label>
-                                          <br>
-                                          <div style="display:flex; gap:1vw;">
-                                                <label>{{book.discountPrice}}</label>
-                                                <del>{{book.price}}</del>
-                                          </div>
-                                          <br>
-                                          <div  style="display:flex; gap:10px;">
-                                                <button style="clip-path: circle();border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="reduceBook(quantityToBuyList[i],cartDetails[i]._id,i)">-</button>
-                                                <div style="width:3vw; display: flex; justify-content: center; align-items: center; border: 1px solid #DBDBDB;" >{{quantityToBuyList[i]}}</div>
-                                                <button style="border-radius:50%; border:1px solid #DBDBDB; width:22px;" (click)="incrementBook(quantityToBuyList[i],book.quantity,cartDetails[i]._id,i)">+</button>
-                                                <label (click)="removeBook(cartDetails[i]._id,i)">Remove</label> 
-                                          </div>
-                                    </div>
-                        </div>
-                        <div style="display:flex; justify-content: flex-end;">
-                              <button *ngIf="!isExpanded"  mat-raised-button color="primary" id="order-button" (click)=" expandAddressPanel();" >PLACE ORDER</button>   
-                        </div>
-      </div>
-                        <mat-expansion-panel hideToggle class="address"  #addressPanel [expanded]="isExpanded" >
-                              
-                                    <mat-expansion-panel-header *ngIf="!addressPanel.expanded" >
-                                      <mat-panel-title >
-                                          Address Details
-                                      </mat-panel-title>
-                                    </mat-expansion-panel-header>
-                                    <div style="padding:2vw;">
-                                          <form [formGroup]="AddressForm" (ngSubmit)="addAddress()">
-                                                <div style="display:flex; flex-direction: column; gap:2vh;">
-                                                      <div style="display:flex; justify-content: space-between; align-items: center;">
-                                                            <mat-label style="font-size: medium; font-weight: bolder; color:#333232;">Customer Details</mat-label>
-                                                            <button  mat-raised-button color="#FFFFFF" style="border:1px solid #A03037; color:#A03037;">Add New Address</button>
-                                                      </div>
-                                                      <div style="display:flex; gap:10px;">
-                                                            <div class="addDet">
-                                                                  <mat-label>FullName</mat-label>
-                                                                  <mat-form-field appearance="outline">
-                                                                        <input matInput type="text" formControlName="name">
-                                                                  </mat-form-field>
+            <div class="addDet">
+              <mat-label>Mobile Number</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput type="number" formControlName="phNo" />
+              </mat-form-field>
+            </div>
+          </div>
 
-                                                            </div>
-                                                            <div class="addDet">
-                                                                  <mat-label>Mobile Number</mat-label>
-                                                                  <mat-form-field appearance="outline">
-                                                                        <input matInput type="number" formControlName="phNo">
-                                                                  </mat-form-field>
-                                                            </div>
-                                                      </div>
-                                                      
-                                                      <label style="font-weight: bolder;">{{ selectedAddressType === '1' ? 'Home' :  (selectedAddressType === '2' ? 'Work' :'Other')}}</label>
+          <label style="font-weight: bolder">{{
+            selectedAddressType === "1"
+              ? "Home"
+              : selectedAddressType === "2"
+              ? "Work"
+              : "Other"
+          }}</label>
 
-                                                      <div class="addDet">
-                                                            <mat-label>Address</mat-label>
-                                                            <mat-form-field appearance="outline" style="width:57%;">
-                                                                  <textarea matInput type="text" formControlName="address"></textarea>
-                                                            </mat-form-field>
-                                                      </div>
-                                                      <div style="display:flex; gap:10px;">
-                                                            <div class="addDet">
-                                                                  <mat-label>city/town</mat-label>
-                                                                  <mat-form-field appearance="outline">
-                                                                        <input matInput type="text" formControlName="city">
-                                                                  </mat-form-field>
-                                                            </div>
-                                                            <div class="addDet">
-                                                                  <mat-label>State</mat-label>
-                                                                  <mat-form-field appearance="outline">
-                                                                        <input matInput  type="text" formControlName="state">
-                                                                  </mat-form-field>
-                                                            </div>
-                                                      </div>
-                                                      <div style="display:flex; flex-direction: column; gap:2vh;">
-                                                            <mat-label>Type</mat-label>
-                                                            <!-- there is a change event in radio group which is used here and the event is passed in a function and later
+          <div class="addDet">
+            <mat-label>Address</mat-label>
+            <mat-form-field appearance="outline" style="width: 57%">
+              <textarea
+                matInput
+                type="text"
+                formControlName="address"
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <div style="display: flex; gap: 10px">
+            <div class="addDet">
+              <mat-label>city/town</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="city" />
+              </mat-form-field>
+            </div>
+            <div class="addDet">
+              <mat-label>State</mat-label>
+              <mat-form-field appearance="outline">
+                <input matInput type="text" formControlName="state" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 2vh">
+            <mat-label>Type</mat-label>
+            <!-- there is a change event in radio group which is used here and the event is passed in a function and later
                                                             with the event.value we can  access which radio button is pressed -->
-                                                            <mat-radio-group aria-label="Select an option" (change)="addressTypeChanged($event)"  formControlName="addressType">
-                                                                  <mat-radio-button value="1" >Home</mat-radio-button>
-                                                                  <mat-radio-button value="2" >Work</mat-radio-button>
-                                                                  <mat-radio-button value="3" >Other</mat-radio-button>
-                                                            </mat-radio-group>
-                                    
-                                                      </div>
-                                                      <button style="margin-left: auto;" mat-raised-button color="primary" type="submit" (click)="addAddress()"  [disabled]="!AddressForm.valid">Continue</button>
-                                                </div>
-                                          </form>
-                              </div>
-                        </mat-expansion-panel>
+            <mat-radio-group
+              aria-label="Select an option"
+              (change)="addressTypeChanged($event)"
+              formControlName="addressType"
+            >
+              <mat-radio-button value="1">Home</mat-radio-button>
+              <mat-radio-button value="2">Work</mat-radio-button>
+              <mat-radio-button value="3">Other</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <button
+            style="margin-left: auto"
+            mat-raised-button
+            color="primary"
+            type="submit"
+            (click)="addAddress()"
+            [disabled]="!AddressForm.valid"
+          >
+            Continue
+          </button>
+        </div>
+      </form>
+    </div>
+  </mat-expansion-panel>
 
-                        <mat-expansion-panel hideToggle class="address"  #orderPanel [expanded]="isOrderExpanded" >
-                              <mat-expansion-panel-header>
-                                <mat-panel-title style="color:#333232">
-                                    Order Summary
-                                </mat-panel-title>            
-                              </mat-expansion-panel-header>
-                              <div class="imgDetails" *ngFor="let book of cartBookList;">
-                                    <img src="../../assets/book1.png">
-                                    <div class="bookDetails">
-                                          <label>{{book.bookName}}</label>
-                                          <label>by {{book.author}} </label>
-                                          <div style="display:flex; gap:1vw;">
-                                                <label>{{book.discountPrice}}</label>
-                                                <del>{{book.price}}</del>
-                                          </div>
-                                          <br>
-                                          
-                                    </div>      
-                                          
-                              </div>
-                              <div style="display:flex; justify-content: flex-end;">
-                                    <button  mat-raised-button color="primary" (click)="checkout();" >CHECKOUT</button>
-                              </div>
-
-                        </mat-expansion-panel>      
-      
+  <mat-expansion-panel
+    hideToggle
+    class="address"
+    #orderPanel
+    [expanded]="isOrderExpanded"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title style="color: #333232"> Order Summary </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="imgDetails" *ngFor="let book of cartBookList; let i = index">
+      <img src="../../assets/book1.png" />
+      <div class="bookDetails">
+        <label>{{ book.bookName }}</label>
+        <label>by {{ book.author }} </label>
+        <div style="display: flex; gap: 1vw">
+          <label>Rs  {{ book.discountPrice * quantityToBuyList[i] }}</label>
+          <del>Rs  {{ book.price}}</del>
+        </div>
+        <br />
+      </div>
+    </div>
+    <div style="display: flex; justify-content: flex-end">
+      <button mat-raised-button color="primary" (click)="checkout()">
+        CHECKOUT
+      </button>
+    </div>
+  </mat-expansion-panel>
 </div>
 <footer>
-      Copyright <mat-icon>copyright</mat-icon> 2020,BookStore Private Limited.All Rights Reserved
+  Copyright <mat-icon>copyright</mat-icon> 2020,BookStore Private Limited.All
+  Rights Reserved
 </footer>

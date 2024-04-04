@@ -30,14 +30,19 @@ align-items: center;
       --mat-tab-header-active-hover-indicator-color: #A03037;
   }
 
-  /* .mat-mdc-tab-header {
+  ::ng-deep .mat-mdc-tab-header {
       --mat-tab-header-label-text-font: Roboto, sans-serif;
       --mat-tab-header-label-text-size: 25px;
       --mat-tab-header-label-text-tracking: 0.0892857143em;
       --mat-tab-header-label-text-line-height: 36px;
       --mat-tab-header-label-text-weight: 500;
-  } */
-
+  }
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper{
+      height:0px;
+  }
+  ::ng-deep .mat-mdc-text-field-wrapper {
+      height: 20px;
+  }
   /* .mat-mdc-tab-header {
       display: flex;
       overflow: hidden;
@@ -48,12 +53,12 @@ align-items: center;
       --mdc-secondary-navigation-tab-container-height: 48px;
   } */
 
-  /* .mdc-tab-indicator__content--underline {
+  ::ng-deep.mdc-tab-indicator__content--underline {
       align-self: flex-end;
       box-sizing: border-box;
       width: 22px!important ;
       border-top-style: solid;
-  } */
+  }
 
 .inner1{
       background-color: white;
