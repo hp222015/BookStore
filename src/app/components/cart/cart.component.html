@@ -1,4 +1,5 @@
 <div class="cartOuter">
+  <br>
   <div>
     <span style="color: #9d9d9d" (click)="goToHome()">Home/</span>
     <span>My cart</span>
@@ -83,10 +84,10 @@
     class="address"
     #addressPanel
     [expanded]="isExpanded"
-    style="position: relative; z-index: -1"
+    [disabled]="true"
   >
-    <mat-expansion-panel-header *ngIf="!addressPanel.expanded">
-      <mat-panel-title> Address Details </mat-panel-title>
+    <mat-expansion-panel-header *ngIf="!addressPanel.expanded" >
+      <mat-panel-title [ngStyle]="{'color':'#333232'}"> Address Details </mat-panel-title>
     </mat-expansion-panel-header>
     <div style="padding: 2vw">
       <form [formGroup]="AddressForm" (ngSubmit)="addAddress()">
@@ -191,6 +192,7 @@
     class="address"
     #orderPanel
     [expanded]="isOrderExpanded"
+    [disabled]="true"
   >
     <mat-expansion-panel-header>
       <mat-panel-title style="color: #333232"> Order Summary </mat-panel-title>

@@ -3,6 +3,7 @@
             <img src="../../../assets/book.png">
             <label style="color: white">Bookstore</label>
       </div>
+      <mat-icon>search</mat-icon>
       <input class="searchInput" [ngStyle]="{'padding-left':'0.5vw'}" matInput type="text" placeholder="Search" (input)="onSearch($event)" >
       <div style="display:flex; gap:2vw; align-items: center;">
             <button mat-button [matMenuTriggerFor]="menu">
@@ -12,15 +13,18 @@
                   </div>
             </button>
             <mat-menu #menu="matMenu">
-                  <div style="padding: 0 2vw;">
+                  <div *ngIf="local" class="person">
+                        <h3>Hello,Harshit</h3>
+                        <!-- <label class="graytext">Hello,Harshit</label> -->
+                        <button class="auth" (click)="gotoLogin();">LOGOUT</button>
+                        <br>
+                  </div>
+                  <div *ngIf="!local" class="person">
                         <h3>Welcome</h3>
                         <label class="graytext">To access account and manage orders</label>
                         <br><br>
-                        <button class="auth" (click)="gotoLogin();">LOGIN/SIGNUP</button>
-                        <br>
-                        <label  class="graytext">__________________________</label>
-                        <button class="graytext" mat-menu-item><mat-icon >Orders</mat-icon>My Orders</button>
-                        <button class="graytext" mat-menu-item><mat-icon >favorite</mat-icon>Wishlist</button>
+                        <button class="reglog" (click)="gotoLogin();">LOGIN/SIGNUP</button>
+
                   </div>
             </mat-menu>
             <div matBadge={{bookQuantity}} class="icons" (click)="gotoCart()">

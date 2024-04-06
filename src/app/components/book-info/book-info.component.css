@@ -4,6 +4,7 @@
       display:flex;
       justify-content: center;
       align-items: center;
+      margin-top: 5vh;
 }
 .inner{     
       width:90vw;
@@ -65,6 +66,8 @@
       background-color:green;
       display: flex;
       color:white;
+      gap:5px;
+      padding-left:8px;
 }
 .star-rating {
       display: inline-block;

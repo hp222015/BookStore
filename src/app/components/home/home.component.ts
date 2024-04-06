@@ -16,6 +16,7 @@ interface cartObj
 export class HomeComponent implements OnInit {
   bookQuantity:number=0;
   cartDetails:cartObj[]=[];
+  local:string|null=null;
 
   constructor(public router:Router, public bookService:BookService, public dataService:DataService, public searchService:SearchService){
   }
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getbookQuantity();
     this.updatebookQuantity();
+    this.local=localStorage.getItem('token');
   }
 
   onSearch(event: Event): void {
@@ -31,6 +33,9 @@ export class HomeComponent implements OnInit {
   }
 
   gotoLogin(){
+    if(this.local){
+    localStorage.removeItem('token');
+    }
     this.router.navigate([""]);
   }
   gotoCart()

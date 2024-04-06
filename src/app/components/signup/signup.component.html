@@ -6,23 +6,25 @@
       <div class="inner2">
         <div style="width:100vw; height:3vh;">
         </div>
-        <mat-tab-group>
-          <mat-tab  label="LOGIN">
+        <mat-tab-group (selectedIndexChange)="resetForms($event)">
+          <mat-tab label="LOGIN">
             <form [formGroup]="LoginForm" (ngSubmit)="loginUser()">
               <div class="loginCnt">
                 <div class="customfields">
                   <div style="width:100%; height:4vh;">
                   </div>
-                  <mat-label>Email Id</mat-label>
+                  <label>Email Id</label>
                   <mat-form-field appearance="outline">
+                 
                     <input matInput type="email" placeholder="Email" formControlName="email">
                   </mat-form-field>
                   <div style="color:red;" *ngIf="submittedLogin && fl?.['email']?.errors?.['required']">Email is required</div>
                   <div style="color:red;" *ngIf="submittedLogin && fl?.['email']?.errors?.['email']">Email should be valid</div>
                 </div>
                 <div class="customfields">
-                  <mat-label>Password</mat-label>
+                  <label>Password</label>
                   <mat-form-field appearance="outline">
+                   
                     <input matInput type="password" placeholder="password" formControlName="password">
                   </mat-form-field>
                   <div style="color:red;" *ngIf="submittedLogin && fl?.['password']?.errors?.['required']">Password is required</div>
@@ -31,7 +33,7 @@
                 <br> 
                 <button mat-raised-button [ngStyle]="{'background-color':'#A03037', 'color':'#FFFFFF'}" type="submit">Login</button>
                 <br>
-                <mat-label style="align-self: center;">_____________ OR _____________</mat-label>
+                <label style="align-self: center;">_____________ OR _____________</label>
                 <br>
                 <div class="b1">
                   <button [ngStyle]="{'width':'20vw'}" mat-raised-button [ngStyle]="{'background-color':'#4266B2', 'color':'#FFFFFF'}">Facebook</button>
@@ -47,15 +49,15 @@
               <div class="signUp">
                 <br>
                 <div class="customfields">
-                  <mat-label>Full Name</mat-label>
-                  <mat-form-field appearance="outline">
+                  <label>Full Name</label>
+                  <mat-form-field appearance="outline">                    
                     <input matInput type="text" placeholder="Full Name" formControlName="name">
                   </mat-form-field>
                   <div style="color:red;" *ngIf="submittedRegister && fr?.['name']?.errors?.['required']">Full Name is required</div>
                   <div style="color:red;" *ngIf="submittedRegister && fr?.['name']?.errors?.['minlength']">Name should have at least 3 characters</div>
                 </div>
                 <div class="customfields">
-                  <mat-label>Email Id</mat-label>
+                  <label>Email Id</label>
                   <mat-form-field appearance="outline">
                     <input matInput type="text" placeholder="Email Id" formControlName="email">
                   </mat-form-field>
@@ -63,7 +65,7 @@
                   <div style="color:red;" *ngIf="submittedRegister && fr?.['email']?.errors?.['email']">Email should be valid</div>
                 </div>
                 <div class="customfields">
-                  <mat-label>Password</mat-label>
+                  <label>Password</label>
                   <mat-form-field appearance="outline">
                     <input matInput type="password" placeholder="Password" formControlName="pswd">
                   </mat-form-field>
@@ -71,7 +73,7 @@
                   <div style="color:red;" *ngIf="submittedRegister && fr?.['pswd']?.errors?.['minlength']">Password should have atleast 6 characters</div>
                 </div>
                 <div class="customfields">
-                  <mat-label>Mobile Number</mat-label>
+                  <label>Mobile Number</label>
                   <mat-form-field appearance="outline">
                     <input matInput type="number" placeholder="Mobile Number" formControlName="mno">
                   </mat-form-field>

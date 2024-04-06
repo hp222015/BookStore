@@ -17,8 +17,13 @@ export class SignupComponent implements OnInit {
   submittedRegister: boolean= false; 
   submittedLogin: boolean=false;  
   key:string="";
+  switch:boolean=true;
 
 constructor(private formBuilder:FormBuilder, public userService:UserService, public router:Router){  
+  
+}
+
+ngOnInit():void{  
   this.LoginForm=this.formBuilder.group({
     email:["",[Validators.required,Validators.email]],
     password:["",[Validators.required,Validators.minLength(6)]]
@@ -31,9 +36,6 @@ constructor(private formBuilder:FormBuilder, public userService:UserService, pub
       mno:["",[Validators.required,Validators.minLength(10)]]
     });
 }
-
-ngOnInit():void{  
-}
 get fl(){
   return this.LoginForm.controls;
 }
@@ -41,6 +43,8 @@ get fl(){
 get fr(){
   return this.RegisterForm.controls;
 }
+
+
 
 loginUser(){
   this.submittedLogin=true;
@@ -62,6 +66,15 @@ loginUser(){
   (error)=>{console.log(error);});
 }
   
+resetForms(selectedIndex: number) {
+  if (selectedIndex === 0) { // Login tab
+    this.LoginForm.reset();
+    this.submittedLogin = false;
+  } else if (selectedIndex === 1) { // Signup tab
+    this.RegisterForm.reset();
+    this.submittedRegister = false;
+  }
+}
 
 registerUser(){
   this.submittedRegister=true;
