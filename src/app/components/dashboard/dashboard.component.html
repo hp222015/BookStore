@@ -1,6 +1,6 @@
 <app-home></app-home>
 <br>
-<div style="display:flex; flex-direction: column; height:200vh; gap:5vh; ">
+<div  class="main">
       <div class="content">
             <div style="display:flex; align-items: center;">
                   <h3 class="heading">Books</h3>
@@ -16,7 +16,7 @@
             </div>
       
       </div>
-      <div style="display:flex; flex-wrap:wrap; margin:0vw 8vw; gap:2vw;">
+      <div class="orderedBooks">
             <!-- pagedBookList -->
             <div  *ngFor="let book of pagedBookList">
                   <app-books (click)="navigateToBook(book._id)" [bookDetails]="book"></app-books>

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { BookService } from 'src/app/services/book/book.service';
 import { DataService } from 'src/app/services/data/data.service';
 import { SearchService } from 'src/app/services/search/search.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 interface cartObj
 {
@@ -17,8 +18,12 @@ export class HomeComponent implements OnInit {
   bookQuantity:number=0;
   cartDetails:cartObj[]=[];
   local:string|null=null;
+  hideSIcon:boolean=true;
+  searchBar:boolean=false;
+  mobileQuery!: MediaQueryList;
 
-  constructor(public router:Router, public bookService:BookService, public dataService:DataService, public searchService:SearchService){
+  constructor(public router:Router, public media:MediaMatcher ,public bookService:BookService, public dataService:DataService, public searchService:SearchService){
+    this.mobileQuery=media.matchMedia('(max-width:600px)')
   }
 
   ngOnInit(): void {
@@ -27,7 +32,11 @@ export class HomeComponent implements OnInit {
     this.local=localStorage.getItem('token');
   }
 
+  openSearchBar(){
+    this.searchBar=!this.searchBar;
+  }
   onSearch(event: Event): void {
+    this.hideSIcon=false;
     const query = (event.target as HTMLInputElement).value;
     this.searchService.setSearchQuery(query);
   }

@@ -10,6 +10,10 @@
       position:fixed;
       z-index:1000;
 }
+.bookLabel{
+      color:white;
+}
+
 .navbar input{
       width: 50%;
       height: 5vh;
@@ -18,10 +22,10 @@
       padding: 0 2vw;
 }
 
-/* .mat-mdc-input-element searchInput{
-      padding-left: 1vw;
-      border:none;
-} */
+.sIcon{
+      position: relative; 
+      margin-right:-11vw;
+}
 
 
 .icons{
@@ -48,4 +52,33 @@
       background-color:white;
       color:#A03037; font-weight: bold;
 
+}
+
+@media screen and (max-width: 600px) {
+      /* Styles to apply when screen width is 600px or less */
+      .navbar{
+            justify-content: space-around;
+      }
+      .searchInput{
+            display:none;
+      }
+      .bookLabel{
+            display:none;
+      }
+      .sIcon{
+            position:relative;
+            left:12vw;
+            color:white;
+      }
+      .sBar input{
+            width:50vw;
+            position:relative;
+            top:10vh;
+            height:5vh;
+            background-color: lightblue;
+      }
+    }
+    
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+/* Styles to apply when screen width is between 601px and 1024px */
 }

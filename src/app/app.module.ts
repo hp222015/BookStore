@@ -29,6 +29,8 @@ import { WishlistComponent } from './components/wishlist/wishlist.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { BooksComponent } from './components/books/books.component';
 import { AuthGuardService } from './services/authentication/auth-guard.service';
+import {MediaMatcher} from '@angular/cdk/layout'
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { AuthGuardService } from './services/authentication/auth-guard.service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    LayoutModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -64,7 +67,7 @@ import { AuthGuardService } from './services/authentication/auth-guard.service';
     MatBadgeModule,
     MatRadioModule
   ],
-  providers: [AuthGuardService],
+  providers: [AuthGuardService,MediaMatcher],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
